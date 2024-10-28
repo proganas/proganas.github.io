@@ -472,7 +472,7 @@ a:hover, a:focus, a:active {
 
 .single-portfolio .p-inner .cat {
     font-size: 12px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     color: #cccccc;
 }
 
