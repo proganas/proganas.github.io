@@ -1,8 +1,4 @@
-Thank you for using our template!
-
-For more awesome templates please visit https://colorlib.com/wp/templates/
-
-Copyright information for the template can't be altered/removed unless you purchase a license.
-More information about the license is available here: https://colorlib.com/wp/licence/
-
-Removing copyright information without the license will result in suspension of your hosting and/or domain name(s).
+Hi there! 
+I'm a PHP Laravel Developer with a passion for building efficient, scalable, and high-performance applications. 
+With a background in custom application development, I specialize in system integration, application performance optimization, and database development. 
+I’m proficient in creating dynamic, feature-rich websites and web applications using Laravel, along with experience in React for frontend development.
