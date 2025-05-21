@@ -857,6 +857,7 @@ a:hover, a:focus, a:active {
 .hover-container {
     position: relative;
     display: inline-block;
+    height: 350px;
 }
 
 .hover-container img {
