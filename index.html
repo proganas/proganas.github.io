@@ -1,486 +1,731 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>CYTOs | SportsTech Innovation Engine — Incubator & Accelerator</title>
-    <!-- Google Fonts + Font Awesome 6 -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYTOS — Something Big Is Coming</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #010313;
-            color: #eef2ff;
-            scroll-behavior: smooth;
-            line-height: 1.5;
-        }
+  :root {
+    --g1: #1a4a1a;
+    --g2: #2d7a2d;
+    --g3: #4CAF50;
+    --lime: #8BC34A;
+    --lime2: #AEEA00;
+    --dark: #050f05;
+    --mid: #0d1f0d;
+  }
 
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0f1f;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2dd4bf;
-            border-radius: 12px;
-        }
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--dark);
+    overflow-x: hidden;
+    font-family: 'Rajdhani', sans-serif;
+    color: #fff;
+  }
 
-        .bg-radial {
-            background: radial-gradient(circle at 10% 20%, rgba(2, 15, 35, 0.9), #01000f);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
+  /* ── CANVAS BACKGROUND ── */
+  #canvas-bg {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+  }
 
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.02;
-            pointer-events: none;
-            z-index: -1;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjUiIG51bU9jdGF2ZXM9IjMiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjZikiIG9wYWNpdHk9IjAuMTUiLz48L3N2Zz4=');
-            background-repeat: repeat;
-        }
+  /* ── GRID OVERLAY ── */
+  .grid-overlay {
+    position: fixed; inset: 0; z-index: 1;
+    background-image:
+      linear-gradient(rgba(77,175,80,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(77,175,80,.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridShift 20s linear infinite;
+  }
+  @keyframes gridShift {
+    0%   { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+  }
 
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+  /* ── RADIAL GLOW ── */
+  .glow-center {
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 900px; height: 900px;
+    background: radial-gradient(ellipse, rgba(77,175,80,.12) 0%, transparent 70%);
+    z-index: 1; pointer-events: none;
+    animation: pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: .7; transform: translate(-50%,-50%) scale(1); }
+    50%      { opacity: 1;  transform: translate(-50%,-50%) scale(1.1); }
+  }
 
-        .glass-card {
-            background: rgba(15, 25, 45, 0.55);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(45, 212, 191, 0.2);
-            border-radius: 2.5rem;
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover {
-            border-color: rgba(45, 212, 191, 0.5);
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4);
-        }
+  /* ── MAIN WRAPPER ── */
+  .wrapper {
+    position: relative; z-index: 10;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 60px 20px;
+  }
 
-        .logo-3d {
-            perspective: 800px;
-            display: inline-block;
-        }
-        .logo-3d img {
-            width: 110px;
-            height: auto;
-            transition: transform 0.35s ease, filter 0.3s;
-            filter: drop-shadow(0 10px 12px rgba(0,0,0,0.3));
-            border-radius: 24px;
-            background: rgba(255,255,255,0.03);
-            padding: 6px;
-            backdrop-filter: blur(2px);
-        }
-        .logo-3d img:hover {
-            transform: rotateY(10deg) rotateX(4deg) scale(1.02);
-            filter: drop-shadow(0 20px 25px rgba(0, 255, 255, 0.2));
-        }
+  /* ── LOGO 3D ── */
+  .logo-3d-wrap {
+    perspective: 800px;
+    margin-bottom: 48px;
+    animation: fadeDown .8s ease both;
+  }
+  .logo-3d {
+    display: flex; flex-direction: column; align-items: center;
+    transform: rotateX(10deg);
+    transform-style: preserve-3d;
+    animation: floatLogo 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 40px rgba(139,195,74,.6)) drop-shadow(0 20px 60px rgba(0,0,0,.8));
+  }
+  @keyframes floatLogo {
+    0%,100% { transform: rotateX(10deg) translateY(0)   rotateY(-2deg); }
+    50%      { transform: rotateX(8deg)  translateY(-14px) rotateY(2deg); }
+  }
 
-        .glow-text {
-            background: linear-gradient(135deg, #FFFFFF 20%, #2dd4bf 80%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
+  /* SVG logo drawn inline — uses brand colors */
+  .logo-svg-wrap svg {
+    width: 320px; height: auto;
+    filter: drop-shadow(0 0 20px rgba(139,195,74,.9));
+  }
 
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            border-left: 5px solid #2dd4bf;
-            padding-left: 1.2rem;
-            margin-bottom: 2rem;
-        }
+  .logo-tagline {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px; font-weight: 300; letter-spacing: 6px;
+    color: rgba(255,255,255,.55); text-transform: uppercase;
+    margin-top: 8px;
+    text-shadow: 0 0 20px rgba(139,195,74,.5);
+  }
 
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.8rem;
-        }
+  /* ── STATUS BADGE ── */
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(77,175,80,.08);
+    border: 1px solid rgba(139,195,74,.35);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 32px;
+    animation: fadeDown .9s .15s ease both;
+    backdrop-filter: blur(10px);
+  }
+  .badge-dot {
+    width: 7px; height: 7px;
+    background: var(--lime);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--lime);
+    animation: blink 1.5s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
 
-        .pill-badge {
-            background: rgba(45, 212, 191, 0.15);
-            border-radius: 100px;
-            padding: 0.25rem 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: inline-block;
-            backdrop-filter: blur(4px);
-            color: #99f6e4;
-        }
+  /* ── MAIN HEADLINE ── */
+  .headline-wrap { text-align: center; margin-bottom: 20px; animation: fadeDown 1s .2s ease both; }
+  .headline-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px; letter-spacing: 8px; text-transform: uppercase;
+    color: rgba(139,195,74,.7); margin-bottom: 12px;
+  }
+  .headline {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(36px, 7vw, 88px);
+    font-weight: 900; line-height: 1;
+    background: linear-gradient(135deg, #fff 0%, var(--lime) 40%, var(--lime2) 70%, #fff 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 30px rgba(174,234,0,.4));
+    text-transform: uppercase; letter-spacing: -2px;
+    animation: shimmer 4s linear infinite;
+    background-size: 200% 100%;
+  }
+  @keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
 
-        .roadmap-step {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-            background: rgba(5, 15, 30, 0.6);
-            border-radius: 2rem;
-            padding: 1.5rem;
-            border-left: 3px solid #2dd4bf;
-        }
+  /* ── DESCRIPTION ── */
+  .desc {
+    max-width: 680px; text-align: center;
+    font-size: 18px; font-weight: 300; line-height: 1.8;
+    color: rgba(255,255,255,.6);
+    margin-bottom: 52px;
+    animation: fadeDown 1s .3s ease both;
+  }
+  .desc strong { color: rgba(139,195,74,.9); font-weight: 600; }
 
-        footer a {
-            transition: all 0.2s;
-        }
-        footer a:hover {
-            color: #2dd4bf;
-            transform: translateY(-2px);
-        }
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 1.8rem;
-            }
-            .container {
-                padding: 0 20px;
-            }
-        }
-        .btn-outline-teal {
-            border: 1px solid #2dd4bf;
-            background: transparent;
-            padding: 0.75rem 1.8rem;
-            border-radius: 40px;
-            font-weight: 600;
-            transition: 0.2s;
-            color: white;
-        }
-        .btn-outline-teal:hover {
-            background: #2dd4bf20;
-            border-color: #5eead4;
-            box-shadow: 0 0 12px rgba(45,212,191,0.3);
-        }
+  /* ── PILLARS ── */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    max-width: 900px; width: 100%;
+    margin-bottom: 56px;
+    animation: fadeUp 1s .4s ease both;
+  }
+  .pillar {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(139,195,74,.18);
+    border-radius: 16px;
+    padding: 28px 24px;
+    position: relative; overflow: hidden;
+    transition: all .4s ease;
+    cursor: default;
+  }
+  .pillar::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(139,195,74,.08) 0%, transparent 60%);
+    opacity: 0; transition: opacity .4s;
+  }
+  .pillar:hover { border-color: rgba(139,195,74,.5); transform: translateY(-4px); }
+  .pillar:hover::before { opacity: 1; }
+  .pillar-icon {
+    font-size: 28px; margin-bottom: 12px;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(139,195,74,.6));
+  }
+  .pillar-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    color: var(--lime); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .pillar-text { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.6; }
 
-        /* ---------- 3D COUNTDOWN SECTION (HIGH-END) ---------- */
-        .countdown-3d-container {
-            perspective: 1200px;
-            margin-bottom: 3rem;
-        }
-        .countdown-3d-card {
-            background: rgba(8, 18, 34, 0.7);
-            backdrop-filter: blur(16px);
-            border-radius: 3rem;
-            padding: 2rem 2rem 2.5rem;
-            text-align: center;
-            border: 1px solid rgba(45, 212, 191, 0.4);
-            transform-style: preserve-3d;
-            transition: transform 0.4s ease, box-shadow 0.4s;
-            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.5);
-        }
-        .countdown-3d-card:hover {
-            transform: rotateX(3deg) rotateY(2deg) translateY(-8px);
-            box-shadow: 0 35px 50px -20px rgba(45,212,191,0.3);
-            border-color: rgba(45,212,191,0.8);
-        }
-        .countdown-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #fff, #2dd4bf);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-        .countdown-sub {
-            font-size: 1rem;
-            color: #9ab3d5;
-            margin-bottom: 2rem;
-            letter-spacing: 1px;
-        }
-        .countdown-grid {
-            display: flex;
-            justify-content: center;
-            gap: 1.8rem;
-            flex-wrap: wrap;
-        }
-        .time-unit {
-            perspective: 600px;
-            min-width: 110px;
-        }
-        .time-card {
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(4px);
-            border-radius: 2rem;
-            padding: 1rem 0.5rem;
-            text-align: center;
-            border: 1px solid rgba(45,212,191,0.5);
-            transform-style: preserve-3d;
-            transition: all 0.2s ease;
-            box-shadow: 0 12px 20px -8px rgba(0,0,0,0.4);
-        }
-        .time-card:hover {
-            transform: translateZ(15px) rotateY(5deg);
-            border-color: #2dd4bf;
-            box-shadow: 0 20px 30px -12px rgba(45,212,191,0.4);
-            background: rgba(20, 40, 60, 0.7);
-        }
-        .time-number {
-            font-size: 3.8rem;
-            font-weight: 800;
-            background: linear-gradient(145deg, #F0F9FF, #2dd4bf);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            line-height: 1;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            letter-spacing: 2px;
-        }
-        .time-label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            color: #7f9fcf;
-            margin-top: 0.5rem;
-        }
-        .launch-badge {
-            margin-top: 1.8rem;
-            font-size: 1rem;
-            font-weight: 500;
-            display: inline-block;
-            background: rgba(45,212,191,0.12);
-            border-radius: 60px;
-            padding: 0.4rem 1.5rem;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(45,212,191,0.3);
-        }
-        @media (max-width: 640px) {
-            .countdown-grid {
-                gap: 0.8rem;
-            }
-            .time-unit {
-                min-width: 70px;
-            }
-            .time-number {
-                font-size: 2.4rem;
-            }
-            .time-label {
-                font-size: 0.7rem;
-            }
-            .countdown-title {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+  /* ── PROGRESS ── */
+  .progress-section {
+    max-width: 600px; width: 100%;
+    margin-bottom: 56px;
+    animation: fadeUp 1s .5s ease both;
+  }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(255,255,255,.4); margin-bottom: 10px;
+  }
+  .progress-label span:last-child { color: var(--lime); }
+  .progress-track {
+    height: 3px; background: rgba(255,255,255,.08);
+    border-radius: 100px; overflow: hidden;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--g2), var(--lime), var(--lime2));
+    border-radius: 100px;
+    animation: growBar 2s 1s ease both;
+    position: relative;
+    width: 72%;
+  }
+  .progress-fill::after {
+    content: '';
+    position: absolute; right: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 8px; height: 8px;
+    background: var(--lime2);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--lime2);
+  }
+  @keyframes growBar { from { width: 0 } to { width: 72% } }
+
+  /* ── ROADMAP ── */
+  .roadmap {
+    max-width: 800px; width: 100%;
+    margin-bottom: 64px;
+    animation: fadeUp 1s .55s ease both;
+  }
+  .roadmap-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: rgba(139,195,74,.6); margin-bottom: 24px; text-align: center;
+  }
+  .roadmap-steps {
+    display: flex; align-items: flex-start; gap: 0;
+    position: relative;
+  }
+  .roadmap-steps::before {
+    content: '';
+    position: absolute; top: 20px; left: calc(50px);
+    right: calc(50px);
+    height: 1px;
+    background: linear-gradient(90deg, var(--g2), var(--lime), var(--g2));
+    z-index: 0;
+  }
+  .step {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    text-align: center; position: relative; z-index: 1;
+  }
+  .step-circle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Orbitron', monospace; font-size: 14px; font-weight: 900;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .step.done .step-circle {
+    background: linear-gradient(135deg, var(--g2), var(--lime));
+    box-shadow: 0 0 20px rgba(139,195,74,.5);
+    color: #fff;
+  }
+  .step.active .step-circle {
+    background: transparent;
+    border: 2px solid var(--lime2);
+    color: var(--lime2);
+    box-shadow: 0 0 20px rgba(174,234,0,.4);
+    animation: activeStep 2s ease-in-out infinite;
+  }
+  .step.pending .step-circle {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.15);
+    color: rgba(255,255,255,.3);
+  }
+  @keyframes activeStep {
+    0%,100% { box-shadow: 0 0 15px rgba(174,234,0,.4); }
+    50%      { box-shadow: 0 0 35px rgba(174,234,0,.8); }
+  }
+  .step-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .step.done .step-label   { color: var(--lime); }
+  .step.active .step-label { color: var(--lime2); }
+  .step.pending .step-label { color: rgba(255,255,255,.25); }
+  .step-desc { font-size: 11px; color: rgba(255,255,255,.35); line-height: 1.5; padding: 0 8px; }
+
+  /* ── OBJECTIVES ── */
+  .objectives {
+    max-width: 900px; width: 100%;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px; margin-bottom: 64px;
+    animation: fadeUp 1s .6s ease both;
+  }
+  .obj-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 18px 20px;
+    border: 1px solid rgba(139,195,74,.12);
+    border-radius: 12px;
+    background: rgba(255,255,255,.02);
+    transition: border-color .3s, background .3s;
+  }
+  .obj-item:hover {
+    border-color: rgba(139,195,74,.35);
+    background: rgba(139,195,74,.04);
+  }
+  .obj-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 20px; font-weight: 900;
+    color: rgba(139,195,74,.25); flex-shrink: 0; line-height: 1;
+  }
+  .obj-content {}
+  .obj-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.85); margin-bottom: 4px; }
+  .obj-text  { font-size: 12px; color: rgba(255,255,255,.4); line-height: 1.6; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%; max-width: 600px;
+    display: flex; align-items: center; gap: 16px;
+    margin: 0 auto 56px;
+    animation: fadeUp 1s .65s ease both;
+  }
+  .divider-line { flex: 1; height: 1px; background: rgba(139,195,74,.2); }
+  .divider-icon { color: var(--lime); font-size: 16px; }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    text-align: center;
+    animation: fadeUp 1s .7s ease both;
+    margin-bottom: 40px;
+  }
+  .contact-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 10px; letter-spacing: 5px; text-transform: uppercase;
+    color: rgba(255,255,255,.3); margin-bottom: 16px;
+  }
+  .contact-email {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(16px, 3vw, 24px); font-weight: 700;
+    color: var(--lime);
+    text-decoration: none;
+    position: relative; display: inline-block;
+    padding: 14px 36px;
+    border: 1px solid rgba(139,195,74,.35);
+    border-radius: 8px;
+    letter-spacing: 2px;
+    transition: all .35s ease;
+    overflow: hidden;
+  }
+  .contact-email::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(139,195,74,.1), transparent);
+    opacity: 0; transition: opacity .35s;
+  }
+  .contact-email:hover {
+    color: #fff;
+    border-color: rgba(174,234,0,.7);
+    box-shadow: 0 0 40px rgba(139,195,74,.3), inset 0 0 20px rgba(139,195,74,.05);
+    text-shadow: 0 0 20px rgba(174,234,0,.8);
+  }
+  .contact-email:hover::before { opacity: 1; }
+
+  .website-link {
+    display: block; margin-top: 12px;
+    font-size: 13px; letter-spacing: 3px;
+    color: rgba(255,255,255,.3); text-decoration: none;
+    transition: color .3s;
+  }
+  .website-link:hover { color: rgba(139,195,74,.8); }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative; z-index: 10;
+    text-align: center; padding: 24px;
+    border-top: 1px solid rgba(139,195,74,.08);
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.2);
+    animation: fadeUp 1s .8s ease both;
+  }
+  footer span { color: rgba(139,195,74,.5); }
+
+  /* ── CORNER DECORATIONS ── */
+  .corner {
+    position: fixed; width: 80px; height: 80px;
+    z-index: 5; pointer-events: none;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .c-tl { top: 24px; left: 24px; }
+  .c-tr { top: 24px; right: 24px; transform: scaleX(-1); }
+  .c-bl { bottom: 24px; left: 24px; transform: scaleY(-1); }
+  .c-br { bottom: 24px; right: 24px; transform: scale(-1,-1); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown { from { opacity:0; transform: translateY(-20px); } to { opacity:1; transform: translateY(0); } }
+  @keyframes fadeUp   { from { opacity:0; transform: translateY(20px);  } to { opacity:1; transform: translateY(0); } }
+
+
+  /* ── IDENTITY / VISION CARDS ── */
+  .identity-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    max-width: 900px; width: 100%;
+    margin-bottom: 56px;
+    animation: fadeUp 1s .4s ease both;
+  }
+  .identity-card {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(139,195,74,.18);
+    border-radius: 20px;
+    padding: 36px 32px;
+    position: relative; overflow: hidden;
+    transition: all .4s ease;
+  }
+  .identity-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(139,195,74,.08) 0%, transparent 60%);
+    opacity: 0; transition: opacity .4s;
+  }
+  .identity-card:hover { border-color: rgba(139,195,74,.5); transform: translateY(-4px); }
+  .identity-card:hover::before { opacity: 1; }
+  .identity-icon {
+    font-size: 32px; margin-bottom: 16px;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(139,195,74,.6));
+  }
+  .identity-card-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px; font-weight: 700; letter-spacing: 3px;
+    color: var(--lime); text-transform: uppercase; margin-bottom: 14px;
+  }
+  .identity-card-text {
+    font-size: 16px; color: rgba(255,255,255,.65); line-height: 1.8;
+    font-style: normal;
+  }
+  .identity-card:last-child .identity-card-text {
+    font-style: italic;
+    color: rgba(255,255,255,.7);
+    border-left: 2px solid rgba(139,195,74,.4);
+    padding-left: 16px;
+  }
+
+  /* ── SCAN LINE ── */
+  .scanline {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(139,195,74,.4), transparent);
+    z-index: 2;
+    animation: scan 4s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes scan { from { top: 0 } to { top: 100% } }
+</style>
 </head>
 <body>
-<div class="bg-radial"></div>
-<div class="noise-overlay"></div>
 
-<!-- Header / Navigation minimal -->
-<div style="padding: 1.2rem 0; border-bottom: 1px solid rgba(45,212,191,0.2);">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <div class="logo-3d">
-                <img src="images/cytos logo.png" alt="CYTOs logo" style="width: 222px">
-            </div>
-            <div>
-                <h1 style="font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em;">CYTOs<span style="color:#2dd4bf;">.</span></h1>
-                <p class="pill-badge" style="margin-top: 4px;">Incubator & Accelerator</p>
-            </div>
-        </div>
-        <div>
-            <a href="#contact" class="btn-outline-teal"><i class="fas fa-paper-plane"></i> Connect</a>
-        </div>
-    </div>
+<!-- Background canvas for particles -->
+<canvas id="canvas-bg"></canvas>
+<div class="grid-overlay"></div>
+<div class="glow-center"></div>
+<div class="scanline"></div>
+
+<!-- Corner decorations -->
+<div class="corner c-tl">
+  <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 76 L4 4 L76 4" stroke="rgba(139,195,74,0.35)" stroke-width="1.5" fill="none"/>
+    <circle cx="4" cy="4" r="3" fill="rgba(139,195,74,0.6)"/>
+  </svg>
+</div>
+<div class="corner c-tr">
+  <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 76 L4 4 L76 4" stroke="rgba(139,195,74,0.35)" stroke-width="1.5" fill="none"/>
+    <circle cx="4" cy="4" r="3" fill="rgba(139,195,74,0.6)"/>
+  </svg>
+</div>
+<div class="corner c-bl">
+  <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 76 L4 4 L76 4" stroke="rgba(139,195,74,0.35)" stroke-width="1.5" fill="none"/>
+    <circle cx="4" cy="4" r="3" fill="rgba(139,195,74,0.6)"/>
+  </svg>
+</div>
+<div class="corner c-br">
+  <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 76 L4 4 L76 4" stroke="rgba(139,195,74,0.35)" stroke-width="1.5" fill="none"/>
+    <circle cx="4" cy="4" r="3" fill="rgba(139,195,74,0.6)"/>
+  </svg>
 </div>
 
-<main>
-    <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
-        <!-- Hero + 3D logo preview + vision statement preview -->
-        <div class="glass-card" style="padding: 2rem 2rem 2.2rem; margin-bottom: 3rem; text-align: center;">
-            <div class="logo-3d" style="margin-bottom: 1rem;">
-                <img src="images/cytos icon.png" alt="CYTOs 3D brand" style="width: 200px;">
-            </div>
-            <h2 class="glow-text" style="font-size: 2.2rem; font-weight: 800;">The Intelligent Nucleus</h2>
-            <p style="max-width: 800px; margin: 1.2rem auto 0; font-size: 1.1rem; color: #ccddf8;">Middle East's first exclusive incubator & accelerator for <strong>Sports Technology & Sustainable Human Performance</strong></p>
-        </div>
+<div class="wrapper">
 
-        <!-- Our Identity & Essence (Nabza) -->
-        <div style="margin-bottom: 4rem;">
-            <div class="section-title">⚡ Identity & Essence</div>
-            <div class="glass-card" style="padding: 2rem;">
-                <p style="font-size: 1.2rem; font-weight: 500; margin-bottom: 1rem;">CYTOS is the dedicated technology arm of Imagine World Wide, specializing in the fusion of sports medicine and digital innovation. We are developing the core infrastructure that will drive the future of the sports industry in the Middle East.</p>
-            </div>
-        </div>
-
-        <!-- Vision from Message -->
-        <div style="margin-bottom: 4rem;">
-            <div class="section-title">🚀 Vision</div>
-            <div class="glass-card" style="padding: 2rem;">
-                <i class="fas fa-quote-left" style="color: #2dd4bf; font-size: 2rem; opacity: 0.6;"></i>
-                <p style="font-size: 1.25rem; font-weight: 500; margin-top: 0.5rem;">"The journey officially begins in August 2026. We are currently finalizing our state-of-the-art digital ecosystem to ensure a groundbreaking debut that sets a new benchmark for excellence"</p>
-            </div>
-        </div>
-
-        <!-- ========== HIGH-END 3D COUNTDOWN (BEFORE CONTACT) ========== -->
-        <div class="countdown-3d-container" id="launchCountdownSection">
-            <div class="countdown-3d-card">
-                <div class="countdown-title">
-                    <i class="fas fa-hourglass-half" style="margin-right: 8px;"></i> IGNITION SEQUENCE
-                </div>
-                <div class="countdown-sub">Official Platform Debut — August 2026</div>
-                <div class="countdown-grid" id="countdownGrid">
-                    <div class="time-unit">
-                        <div class="time-card">
-                            <div class="time-number" id="daysCount">00</div>
-                            <div class="time-label">DAYS</div>
-                        </div>
-                    </div>
-                    <div class="time-unit">
-                        <div class="time-card">
-                            <div class="time-number" id="hoursCount">00</div>
-                            <div class="time-label">HOURS</div>
-                        </div>
-                    </div>
-                    <div class="time-unit">
-                        <div class="time-card">
-                            <div class="time-number" id="minutesCount">00</div>
-                            <div class="time-label">MINUTES</div>
-                        </div>
-                    </div>
-                    <div class="time-unit">
-                        <div class="time-card">
-                            <div class="time-number" id="secondsCount">00</div>
-                            <div class="time-label">SECONDS</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="launch-badge">
-                    <i class="fas fa-calendar-alt"></i> Target: 1st August 2026 — Global rollout
-                </div>
-            </div>
-        </div>
-
-        <!-- final call & contact section -->
-        <div id="contact" style="margin: 3rem 0 2rem;">
-            <div class="glass-card" style="padding: 2.5rem; text-align: center; background: rgba(5, 18, 38, 0.8);">
-                <i class="fas fa-envelope-open-text" style="font-size: 2.5rem; color: #2dd4bf; margin-bottom: 1rem; display: inline-block;"></i>
-                <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Shape the future of SportsTech</h2>
-                <p style="margin-bottom: 1.8rem; max-width: 550px; margin-left: auto; margin-right: auto;">Ready to own your innovation? Let’s build a global impact.</p>
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.8rem;">
-                    <div><i class="fas fa-envelope"></i> <a href="mailto:info@imagineworldwide.co" style="color:white; text-decoration: none; font-weight: 500;">info@imagineworldwide.co</a></div>
-                    <div><i class="fas fa-map-marker-alt"></i> Middle East Hub — Dubai, UAE</div>
-                    <div><i class="fab fa-linkedin"></i> <span style="opacity:0.8;">CYTOs Innovation</span></div>
-                </div>
-                <div style="margin-top: 2rem; border-top: 1px dashed rgba(45,212,191,0.3); padding-top: 1.5rem; font-size: 0.85rem;">
-                    <i class="fas fa-shield-alt"></i> Innovation Autonomy · Green Quality Seal · Global Incubation
-                </div>
-            </div>
-        </div>
+  <!-- 3D LOGO -->
+  <div class="logo-3d-wrap">
+    <div class="logo-3d">
+      <div class="logo-svg-wrap">
+        <img src="logo only white.png" alt="CYTOS Incubator & Accelerators" style="width:320px;height:auto;"/>
+      </div>
     </div>
-</main>
+  </div>
 
-<footer style="border-top: 1px solid rgba(45,212,191,0.2); padding: 2rem 0; margin-top: 1rem;">
-    <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: center;">
-        <div style="display: flex; gap: 12px; align-items: center;">
-            <div class="logo-3d" style="width: 250px;">
-                <img src="images/logo.png" style="width: 250px; height:100px;" alt="logo icon">
-            </div>
-            <span>© 2025 CYTOs — The Intelligent Nucleus. Powered by Imagine Worldwide.</span>
-        </div>
-        <div>
-            <a href="#" style="color: #9ca3af; margin-right: 1rem;"><i class="fab fa-twitter"></i></a>
-            <a href="#" style="color: #9ca3af;"><i class="fab fa-github"></i></a>
-        </div>
+  <!-- STATUS BADGE -->
+  <div class="badge">
+    <span class="badge-dot"></span>
+    Platform Under Development
+  </div>
+
+  <!-- HEADLINE -->
+  <div class="headline-wrap">
+    <div class="headline-sub">Innovation Is Being Deployed</div>
+    <h1 class="headline">COMING SOON</h1>
+  </div>
+
+  <!-- IDENTITY & VISION -->
+  <div class="identity-section">
+    <div class="identity-card">
+      <div class="identity-icon">⚡</div>
+      <div class="identity-card-title">Identity &amp; Essence</div>
+      <div class="identity-card-text">CYTOS is the dedicated technology arm of Imagine Worldwide, specializing in the fusion of sports medicine and digital innovation. We are developing the core infrastructure that will drive the future of the sports industry in the Middle East.</div>
     </div>
+    <div class="identity-card">
+      <div class="identity-icon">🚀</div>
+      <div class="identity-card-title">Vision</div>
+      <div class="identity-card-text">"The journey officially begins in August 2026. We are currently finalizing our state-of-the-art digital ecosystem to ensure a groundbreaking debut that sets a new benchmark for excellence"</div>
+    </div>
+  </div>
+
+
+
+  <!-- GROWTH ROADMAP -->
+  <div class="roadmap">
+    <div class="roadmap-title">Growth Roadmap</div>
+    <div class="roadmap-steps">
+      <div class="step done">
+        <div class="step-circle">1</div>
+        <div class="step-label">Technical Foundation</div>
+        <div class="step-desc">Independent software core & advanced digital security protocols</div>
+      </div>
+      <div class="step active">
+        <div class="step-circle">2</div>
+        <div class="step-label">Global Connectivity</div>
+        <div class="step-desc">Activating incubator & accelerator with world-class expertise</div>
+      </div>
+      <div class="step pending">
+        <div class="step-circle">3</div>
+        <div class="step-label">Global Presence</div>
+        <div class="step-desc">Scaling cross-border alliances & exporting CYTOS-certified technology</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRATEGIC OBJECTIVES -->
+  <div class="objectives">
+    <div class="obj-item">
+      <div class="obj-num">01</div>
+      <div class="obj-content">
+        <div class="obj-title">Technical Independence</div>
+        <div class="obj-text">Proprietary cloud environments — full control, zero platform dependency.</div>
+      </div>
+    </div>
+    <div class="obj-item">
+      <div class="obj-num">02</div>
+      <div class="obj-content">
+        <div class="obj-title">Global Talent Development</div>
+        <div class="obj-text">Advanced training programs producing internationally qualified SportsTech professionals.</div>
+      </div>
+    </div>
+    <div class="obj-item">
+      <div class="obj-num">03</div>
+      <div class="obj-content">
+        <div class="obj-title">Nature-Based Innovation</div>
+        <div class="obj-text">Leading the green transition in sport with biodiversity conservation at the core.</div>
+      </div>
+    </div>
+    <div class="obj-item">
+      <div class="obj-num">04</div>
+      <div class="obj-content">
+        <div class="obj-title">Global Expansion</div>
+        <div class="obj-text">International launchpad transforming local innovations into world-recognized brands.</div>
+      </div>
+    </div>
+    <div class="obj-item">
+      <div class="obj-num">05</div>
+      <div class="obj-content">
+        <div class="obj-title">Knowledge → Investment</div>
+        <div class="obj-text">Converting cutting-edge research into investment-ready, globally competitive startups.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-icon">◆</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-section">
+    <div class="contact-label">Get In Touch</div>
+    <a href="mailto:info@imagineworldwide.co" class="contact-email">info@imagineworldwide.co</a>
+    <a href="https://www.imagineworldwide.co" target="_blank" class="website-link">www.imagineworldwide.co</a>
+  </div>
+
+</div><!-- /wrapper -->
+
+<footer>
+<img src="cytos logo white.png" alt="CYTOS" style="height:32px;width:auto;opacity:0.5;vertical-align:middle;margin-right:12px;"/> &nbsp;|&nbsp; Powered by <span>Imagine Worldwide</span>
 </footer>
+  
 
-<!-- 3D COUNTDOWN JAVASCRIPT WITH DYNAMIC UPDATES -->
 <script>
-    (function() {
-        // Launch target: August 1, 2026, 00:00:00 local time (midnight).
-        // To make it more engaging, we set to 1st August 2026.
-        const launchDate = new Date(2026, 7, 1, 0, 0, 0); // month 7 = August
+/* ── PARTICLE SYSTEM ── */
+const canvas = document.getElementById('canvas-bg');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [], nodes = [];
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const targetTime = launchDate.getTime();
-            const distance = targetTime - now;
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
 
-            if (distance < 0) {
-                // Launch has already started: display epic live message
-                document.getElementById('daysCount').innerText = '00';
-                document.getElementById('hoursCount').innerText = '00';
-                document.getElementById('minutesCount').innerText = '00';
-                document.getElementById('secondsCount').innerText = '00';
-                const badge = document.querySelector('.launch-badge');
-                if (badge) badge.innerHTML = '<i class="fas fa-rocket"></i> LIVE NOW — Ecosystem fully active';
-                return;
-            }
+/* Floating molecule nodes */
+class Node {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - .5) * .3;
+    this.vy = (Math.random() - .5) * .3;
+    this.r  = Math.random() * 4 + 2;
+    this.alpha = Math.random() * .4 + .1;
+    this.color = Math.random() > .5 ? '#4CAF50' : '#8BC34A';
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < -20 || this.x > W+20 || this.y < -20 || this.y > H+20) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.alpha;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (86400000)) / (3600000));
-            const minutes = Math.floor((distance % 3600000) / 60000);
-            const seconds = Math.floor((distance % 60000) / 1000);
+/* Sparkling particles */
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 1.5 + .5;
+    this.alpha = 0;
+    this.targetAlpha = Math.random() * .5 + .1;
+    this.speed = Math.random() * .02 + .005;
+    this.phase = Math.random() * Math.PI * 2;
+  }
+  update(t) {
+    this.alpha = this.targetAlpha * (Math.sin(t * this.speed + this.phase) * .5 + .5);
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fillStyle = '#8BC34A';
+    ctx.globalAlpha = this.alpha;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
 
-            // Format with leading zeros
-            document.getElementById('daysCount').innerText = days < 10 ? '0' + days : days;
-            document.getElementById('hoursCount').innerText = hours < 10 ? '0' + hours : hours;
-            document.getElementById('minutesCount').innerText = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('secondsCount').innerText = seconds < 10 ? '0' + seconds : seconds;
-        }
+for (let i = 0; i < 60; i++) nodes.push(new Node());
+for (let i = 0; i < 120; i++) particles.push(new Particle());
 
-        // initial call
-        updateCountdown();
-        // update every second for perfect 3D experience
-        const interval = setInterval(updateCountdown, 1000);
+function drawConnections() {
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i+1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 160) {
+        const alpha = (1 - dist/160) * .12;
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.strokeStyle = `rgba(77,175,80,${alpha})`;
+        ctx.lineWidth = .8;
+        ctx.stroke();
+      }
+    }
+  }
+}
 
-        // Optional: clean up interval if needed (not strictly necessary for standard page)
-        window.addEventListener('beforeunload', function() {
-            clearInterval(interval);
-        });
-    })();
-</script>
+let t = 0;
+function loop() {
+  ctx.clearRect(0, 0, W, H);
+  t++;
+  drawConnections();
+  nodes.forEach(n => { n.update(); n.draw(); });
+  particles.forEach(p => { p.update(t); p.draw(); });
+  requestAnimationFrame(loop);
+}
+loop();
 
-<!-- subtle floating particles effect (decorative) -->
-<script>
-    (function() {
-        // simple decorative effect just to add breath, no performance burden
-        const style = document.createElement('style');
-        style.textContent = `
-            .particle-glow {
-                position: fixed;
-                width: 280px;
-                height: 280px;
-                background: radial-gradient(circle, rgba(45,212,191,0.08) 0%, rgba(0,0,0,0) 70%);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: -1;
-                animation: floatPulse 18s infinite alternate;
-            }
-            @keyframes floatPulse {
-                0% { transform: translate(0,0) scale(1); opacity: 0.3; }
-                100% { transform: translate(40px, 30px) scale(1.2); opacity: 0.6; }
-            }
-        `;
-        document.head.appendChild(style);
-        for(let i=0;i<3;i++) {
-            const blob = document.createElement('div');
-            blob.classList.add('particle-glow');
-            blob.style.top = Math.random() * 100 + '%';
-            blob.style.left = Math.random() * 100 + '%';
-            blob.style.animationDelay = Math.random() * 10 + 's';
-            blob.style.animationDuration = 20 + Math.random() * 15 + 's';
-            document.body.appendChild(blob);
-        }
-    })();
+/* ── MOUSE PARALLAX on logo ── */
+document.addEventListener('mousemove', e => {
+  const rx = (e.clientY / window.innerHeight - .5) * 8;
+  const ry = (e.clientX / window.innerWidth  - .5) * 8;
+  document.querySelector('.logo-3d').style.transform =
+    `rotateX(${10 - rx}deg) rotateY(${ry}deg)`;
+});
 </script>
 </body>
 </html>
