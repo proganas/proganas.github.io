@@ -1,507 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Anas Hamed | My CV</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="icon" href="images/favicon.jpg">
-    <link rel="stylesheet" href="css/flexslider.css">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>CYTOs | SportsTech Innovation Engine — Incubator & Accelerator</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #010313;
+            color: #eef2ff;
+            scroll-behavior: smooth;
+            line-height: 1.5;
+        }
 
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0f1f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2dd4bf;
+            border-radius: 12px;
+        }
 
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
+        .bg-radial {
+            background: radial-gradient(circle at 10% 20%, rgba(2, 15, 35, 0.9), #01000f);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
 
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700" rel="stylesheet">
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: -1;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjUiIG51bU9jdGF2ZXM9IjMiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjZikiIG9wYWNpdHk9IjAuMTUiLz48L3N2Zz4=');
+            background-repeat: repeat;
+        }
 
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .glass-card {
+            background: rgba(15, 25, 45, 0.55);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: 2.5rem;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(45, 212, 191, 0.5);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4);
+        }
+
+        .logo-3d {
+            perspective: 800px;
+            display: inline-block;
+        }
+        .logo-3d img {
+            width: 110px;
+            height: auto;
+            transition: transform 0.35s ease, filter 0.3s;
+            filter: drop-shadow(0 10px 12px rgba(0,0,0,0.3));
+            border-radius: 24px;
+            background: rgba(255,255,255,0.03);
+            padding: 6px;
+            backdrop-filter: blur(2px);
+        }
+        .logo-3d img:hover {
+            transform: rotateY(10deg) rotateX(4deg) scale(1.02);
+            filter: drop-shadow(0 20px 25px rgba(0, 255, 255, 0.2));
+        }
+
+        .glow-text {
+            background: linear-gradient(135deg, #FFFFFF 20%, #2dd4bf 80%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            border-left: 5px solid #2dd4bf;
+            padding-left: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .pill-badge {
+            background: rgba(45, 212, 191, 0.15);
+            border-radius: 100px;
+            padding: 0.25rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+            color: #99f6e4;
+        }
+
+        .roadmap-step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background: rgba(5, 15, 30, 0.6);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            border-left: 3px solid #2dd4bf;
+        }
+
+        footer a {
+            transition: all 0.2s;
+        }
+        footer a:hover {
+            color: #2dd4bf;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .container {
+                padding: 0 20px;
+            }
+        }
+        .btn-outline-teal {
+            border: 1px solid #2dd4bf;
+            background: transparent;
+            padding: 0.75rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: 0.2s;
+            color: white;
+        }
+        .btn-outline-teal:hover {
+            background: #2dd4bf20;
+            border-color: #5eead4;
+            box-shadow: 0 0 12px rgba(45,212,191,0.3);
+        }
+
+        /* ---------- 3D COUNTDOWN SECTION (HIGH-END) ---------- */
+        .countdown-3d-container {
+            perspective: 1200px;
+            margin-bottom: 3rem;
+        }
+        .countdown-3d-card {
+            background: rgba(8, 18, 34, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 3rem;
+            padding: 2rem 2rem 2.5rem;
+            text-align: center;
+            border: 1px solid rgba(45, 212, 191, 0.4);
+            transform-style: preserve-3d;
+            transition: transform 0.4s ease, box-shadow 0.4s;
+            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.5);
+        }
+        .countdown-3d-card:hover {
+            transform: rotateX(3deg) rotateY(2deg) translateY(-8px);
+            box-shadow: 0 35px 50px -20px rgba(45,212,191,0.3);
+            border-color: rgba(45,212,191,0.8);
+        }
+        .countdown-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff, #2dd4bf);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .countdown-sub {
+            font-size: 1rem;
+            color: #9ab3d5;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+        }
+        .time-unit {
+            perspective: 600px;
+            min-width: 110px;
+        }
+        .time-card {
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(4px);
+            border-radius: 2rem;
+            padding: 1rem 0.5rem;
+            text-align: center;
+            border: 1px solid rgba(45,212,191,0.5);
+            transform-style: preserve-3d;
+            transition: all 0.2s ease;
+            box-shadow: 0 12px 20px -8px rgba(0,0,0,0.4);
+        }
+        .time-card:hover {
+            transform: translateZ(15px) rotateY(5deg);
+            border-color: #2dd4bf;
+            box-shadow: 0 20px 30px -12px rgba(45,212,191,0.4);
+            background: rgba(20, 40, 60, 0.7);
+        }
+        .time-number {
+            font-size: 3.8rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #F0F9FF, #2dd4bf);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            letter-spacing: 2px;
+        }
+        .time-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: #7f9fcf;
+            margin-top: 0.5rem;
+        }
+        .launch-badge {
+            margin-top: 1.8rem;
+            font-size: 1rem;
+            font-weight: 500;
+            display: inline-block;
+            background: rgba(45,212,191,0.12);
+            border-radius: 60px;
+            padding: 0.4rem 1.5rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(45,212,191,0.3);
+        }
+        @media (max-width: 640px) {
+            .countdown-grid {
+                gap: 0.8rem;
+            }
+            .time-unit {
+                min-width: 70px;
+            }
+            .time-number {
+                font-size: 2.4rem;
+            }
+            .time-label {
+                font-size: 0.7rem;
+            }
+            .countdown-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
-<body data-spy="scroll" data-target="#pb-navbar" data-offset="200">
+<body>
+<div class="bg-radial"></div>
+<div class="noise-overlay"></div>
 
-<nav class="navbar navbar-expand-lg site-navbar navbar-light bg-light" id="pb-navbar">
-
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
-                aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-
-        <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample09">
-            <ul class="navbar-nav">
-
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#section-about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#section-projects">Projects</a></li>
-                <li class="nav-item"><a class="nav-link" href="#section-resume">Resume</a></li>
-                <li class="nav-item"><a class="nav-link" href="#section-skills">Skills</a></li>
-                <li class="nav-item"><a class="nav-link" href="#section-contact">Contact</a></li>
-            </ul>
+<!-- Header / Navigation minimal -->
+<div style="padding: 1.2rem 0; border-bottom: 1px solid rgba(45,212,191,0.2);">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="logo-3d">
+                <img src="cytos logo.png" alt="CYTOs logo" style="width: 222px">
+            </div>
+            <div>
+                <h1 style="font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em;">CYTOs<span style="color:#2dd4bf;">.</span></h1>
+                <p class="pill-badge" style="margin-top: 4px;">Incubator & Accelerator</p>
+            </div>
+        </div>
+        <div>
+            <a href="#contact" class="btn-outline-teal"><i class="fas fa-paper-plane"></i> Connect</a>
         </div>
     </div>
-</nav>
+</div>
 
-<section class="site-hero" style="background-image: url(images/header.jpg);" id="section-home"
-         data-stellar-background-ratio="0.5">
-    <div class="container">
-        <div class="row intro-text align-items-center justify-content-center">
-            <div class="col-md-10 text-center pt-5">
-
-                <h1 class="site-heading site-animate">Hello, I'm <strong class="d-block">Anas Hamed</strong></h1>
-                <strong class="d-block text-white text-uppercase letter-spacing">Backend Developer specializing in PHP, Laravel, APIs, and scalable systems.</strong>
-
+<main>
+    <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+        <!-- Hero + 3D logo preview + vision statement preview -->
+        <div class="glass-card" style="padding: 2rem 2rem 2.2rem; margin-bottom: 3rem; text-align: center;">
+            <div class="logo-3d" style="margin-bottom: 1rem;">
+                <img src="cytos icon.png" alt="CYTOs 3D brand" style="width: 200px;">
             </div>
+            <h2 class="glow-text" style="font-size: 2.2rem; font-weight: 800;">The Intelligent Nucleus</h2>
+            <p style="max-width: 800px; margin: 1.2rem auto 0; font-size: 1.1rem; color: #ccddf8;">Middle East's first exclusive incubator & accelerator for <strong>Sports Technology & Sustainable Human Performance</strong></p>
         </div>
-    </div>
-</section>
 
-<section class="site-section" id="section-about">
-    <div class="container">
-        <div class="row mb-5 align-items-center">
-            <div class="col-lg-7 pr-lg-5 mb-5 mb-lg-0" data-aos="fade-left">
-                <img src="images/about.png" alt="Image placeholder" class="img-fluid">
-            </div>
-            <div class="col-lg-5 pl-lg-5" data-aos="fade-right">
-                <div class="section-heading">
-                    <h2>About <strong>Me</strong></h2>
-                </div>
-                <p class="lead">PHP and Laravel Developer with 4+ years of experience building scalable backend systems
-                    and full-stack web applications.
-                    Strong background in database design, API development, system integration, and performance
-                    optimization.
-                    Experienced in delivering production-ready solutions and collaborating within agile teams.</p>
-                <p class="mb-5"></p>
-
-                <p>
-                    <a href="#section-contact" class="btn btn-primary px-4 py-2 btn-sm smoothscroll">Hire Me</a>
-                    <a href="doc/cv.pdf" class="btn btn-secondary px-4 py-2 btn-sm" target="_blank">See My CV</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="site-section" id="section-projects">
-    <div class="container">
-        <div class="row">
-            <div class="section-heading text-center col-md-12">
-                <h2>My <strong>Projects</strong></h2>
+        <!-- Our Identity & Essence (Nabza) -->
+        <div style="margin-bottom: 4rem;">
+            <div class="section-title">⚡ Identity & Essence</div>
+            <div class="glass-card" style="padding: 2rem;">
+                <p style="font-size: 1.2rem; font-weight: 500; margin-bottom: 1rem;">CYTOS is the dedicated technology arm of Imagine World Wide, specializing in the fusion of sports medicine and digital innovation. We are developing the core infrastructure that will drive the future of the sports industry in the Middle East.</p>
             </div>
         </div>
 
-        <div class="filters-content">
-            <div class="row grid">
-
-                <div class="single-portfolio col-sm-4 all ecommerce" data-aos="flip-left">
-                    <a href="https://www.ozcar.com.au/" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p1.jpg" alt="">
-                                <div class="hover-text">Add Some Features</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>OzCar</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all ecommerce" data-aos="flip-up">
-                    <a href="https://www.bigredpackaging.com.au/" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p2.jpg" alt="">
-                                <div class="hover-text">Add Some Features</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>Big Red Packaging</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all ecommerce" data-aos="flip-right">
-                    <a href="https://zofaria.com/en" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p3.jpg" alt="">
-                                <div class="hover-text">Create From Scratch</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>Zofaria</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all wordpress" data-aos="flip-left">
-                    <a href="https://7pixel.com.sa/" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p4.jpg" alt="">
-                                <div class="hover-text">Add Some Features</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>7Pixel</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all wordpress" data-aos="flip-down">
-                    <a href="https://imamacademy.net/" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p5.jpg" alt="">
-                                <div class="hover-text">Add Some Features</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>Imam Academy</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all portfolio" data-aos="flip-right">
-                    <a href="https://almeshaikah.com/en" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p6.jpg" alt="">
-                                <div class="hover-text">Create From Scratch</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>Almeshaikah</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all portfolio" data-aos="flip-left">
-                    <a href="https://demoyoursite.xyz/anas/yaboosco/public/en" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p7.jpg" alt="">
-                                <div class="hover-text">Create From Scratch</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>Yaboos</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all portfolio" data-aos="flip-up">
-                    <a href="https://demoyoursite.xyz/anas/b3raea/public/" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p8.jpg" alt="">
-                                <div class="hover-text">Create From Scratch</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>B3raea</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all portfolio" data-aos="flip-right">
-                    <a href="https://cl4it.com/en" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p9.jpg" alt="">
-                                <div class="hover-text">Add Some Features</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>Cyber Life</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all portfolio" data-aos="flip-left">
-                    <a href="https://demoyoursite.xyz/mohamed-fathy/sama-dim/public/en" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p10.jpg" alt="">
-                                <div class="hover-text">Create From Scratch</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>Sama</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all portfolio" data-aos="flip-left">
-                    <a href="https://demoyoursite.xyz/thabet/eramart/public/en" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p11.jpg" alt="">
-                                <div class="hover-text">Add Some Features</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>Errm Art</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all portfolio" data-aos="flip-left">
-                    <a href="https://3linesco.com/" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p12.jpg" alt="">
-                                <div class="hover-text">Add Some Features</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>3 Lines Company</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all portfolio" data-aos="flip-left">
-                    <a href="https://demoyoursite.xyz/anas/wesell/public/en" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p13.jpg" alt="">
-                                <div class="hover-text">Create From Scratch</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>Cars Auction</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-portfolio col-sm-4 all portfolio" data-aos="flip-left">
-                    <a href="https://demoyoursite.xyz/mohamed-fathy/alkawthar-beach/public/" target="_blank">
-                        <div class="relative">
-                            <div class="thumb hover-container">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="images/projects/p14.jpg" alt="">
-                                <div class="hover-text">Add Some Features</div>
-                            </div>
-                        </div>
-                        <div class="p-inner">
-                            <h4>Alkawthar Beach</h4>
-                        </div>
-                    </a>
-                </div>
-
+        <!-- Vision from Message -->
+        <div style="margin-bottom: 4rem;">
+            <div class="section-title">🚀 Vision</div>
+            <div class="glass-card" style="padding: 2rem;">
+                <i class="fas fa-quote-left" style="color: #2dd4bf; font-size: 2rem; opacity: 0.6;"></i>
+                <p style="font-size: 1.25rem; font-weight: 500; margin-top: 0.5rem;">"The journey officially begins in August 2026. We are currently finalizing our state-of-the-art digital ecosystem to ensure a groundbreaking debut that sets a new benchmark for excellence"</p>
             </div>
         </div>
-    </div>
-</section>
 
-<section class="site-section " id="section-resume">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 mb-5">
-                <div class="section-heading text-center">
-                    <h2>My <strong>Resume</strong></h2>
+        <!-- ========== HIGH-END 3D COUNTDOWN (BEFORE CONTACT) ========== -->
+        <div class="countdown-3d-container" id="launchCountdownSection">
+            <div class="countdown-3d-card">
+                <div class="countdown-title">
+                    <i class="fas fa-hourglass-half" style="margin-right: 8px;"></i> IGNITION SEQUENCE
                 </div>
-            </div>
-
-            <div class="col-md-6" data-aos="zoom-in-right">
-                <h2 class="mb-5">Education</h2>
-
-                <div class="resume-item mb-4">
-                    <span class="date"><span class="icon-calendar"></span> JUN 2013</span>
-                    <h3>Bachelor of Computer Science and Pure Math.</h3>
-                    <p>Faculty of Science.</p>
-                    <span class="school">Al-Azhar University.</span>
-                </div>
-
-            </div>
-            <div class="col-md-6" data-aos="zoom-in-left">
-                <h2 class="mb-5">Experience</h2>
-
-                <div class="resume-item mb-4">
-                    <span class="date"><span class="icon-calendar"></span> JUN 2020 - MAR 2024</span>
-                    <h3>Cake-PHP Developer At <a href="https://www.silvertrees.net/" target="_blank">Silvertress</a>
-                    </h3>
-                    <p>- Created dynamic web pages using HTML, CSS, JavaScript and PHP.</p>
-                    <p>- Developed and maintained web applications using the MVC architecture.</p>
-                    <p>- Experienced in working with PHP frameworks such as Cake PHP.</p>
-                    <p>- Experienced at debugging and troubleshooting web applications.</p>
-                </div>
-
-                <div class="resume-item mb-4">
-                    <span class="date"><span class="icon-calendar"></span> APR 2024 - Present</span>
-                    <h3>Laravel PHP Developer At <a href="https://marwan.tech/en" target="_blank">Marwan Group</a></h3>
-                    <p>- Experienced in working with front-end.</p>
-                    <p>- Experienced in working database.</p>
-                    <p>- Experienced in using version control systems such as GIT.</p>
-                    <p>- Experienced in working with PHP frameworks such as Laravel.</p>
-                    <p>- Led a team of staff members by fostering a collaborative and productive work environment.</p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="site-section pb-0" id="section-skills">
-    <div class="container">
-
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <div class="section-heading text-center">
-                    <h2>My <strong>Skills</strong></h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="owl-carousel">
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/html.jpg" alt="HTML"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/css.jpg" alt="CSS"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/javascript.jpg" alt="javaScript"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/bootstrap.jpg" alt="Bootstrap"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/vue.jpg" alt="VueJS"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/react.jpg" alt="ReactJS"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/ajax.jpg" alt="Ajax"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/api.jpg" alt="API"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/mysql.jpg" alt="MySQL"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/wordpress.jpg" alt="WordPress"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/cake_php.jpg" alt="CakePHP"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/laravel.jpg" alt="Laravel"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/git.jpg" alt="Git"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/oop.jpg" alt="OOP"/>
-                </div>
-                <div class="item" style="background-color: white;">
-                    <img src="images/services/solid.jpg" alt="SOLID"/>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="site-section" id="section-contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 mb-5">
-                <div class="section-heading text-center">
-                    <h2>Get <strong>In Touch</strong></h2>
-                </div>
-            </div>
-
-            <div class="col-md-7 mb-5 mb-md-0">
-                <form action="#section-contact" class="site-form">
-                    <h3 class="mb-5">Get In Touch</h3>
-                    <div class="form-group">
-                        <input type="text" class="form-control px-3 py-4" placeholder="Your Name">
+                <div class="countdown-sub">Official Platform Debut — August 2026</div>
+                <div class="countdown-grid" id="countdownGrid">
+                    <div class="time-unit">
+                        <div class="time-card">
+                            <div class="time-number" id="daysCount">00</div>
+                            <div class="time-label">DAYS</div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control px-3 py-4" placeholder="Your Email">
+                    <div class="time-unit">
+                        <div class="time-card">
+                            <div class="time-number" id="hoursCount">00</div>
+                            <div class="time-label">HOURS</div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control px-3 py-4" placeholder="Your Phone">
+                    <div class="time-unit">
+                        <div class="time-card">
+                            <div class="time-number" id="minutesCount">00</div>
+                            <div class="time-label">MINUTES</div>
+                        </div>
                     </div>
-                    <div class="form-group mb-3">
-                        <textarea class="form-control px-3 py-4" cols="30" rows="10"
-                                  placeholder="Write a Message"></textarea>
+                    <div class="time-unit">
+                        <div class="time-card">
+                            <div class="time-number" id="secondsCount">00</div>
+                            <div class="time-label">SECONDS</div>
+                        </div>
                     </div>
-                    <p class="text-danger">This form is inactive because it needs server-side support to work.</p>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary  px-4 py-3" value="Need Server!" disabled>
-                    </div>
-                </form>
+                </div>
+                <div class="launch-badge">
+                    <i class="fas fa-calendar-alt"></i> Target: 1st August 2026 — Global rollout
+                </div>
             </div>
-            <div class="col-md-5 pl-md-5">
-                <h3 class="mb-5">My Contact Details</h3>
-                <ul class="site-contact-details">
-                    <li>
-                        <span class="text-uppercase">Email: </span>
-                        <a href="mailto:prog.anas@gmail.com" target="_blank">prog.anas@gmail.com</a>
-                    </li>
-                    <li>
-                        <span class="text-uppercase">LinkedIn: </span>
-                        <a href="https://www.linkedin.com/in/anas-hamed-6a500438a/" target="_blank">https://www.linkedin.com/in/anas-hamed-6a500438a</a>
-                    </li>
-                    <li>
-                        <span class="text-uppercase">Github: </span>
-                        <a href="https://github.com/proganas" target="_blank">https://github.com/proganas</a>
-                    </li>
-                    <li>
-                        <span class="text-uppercase">Phone: </span>
-                        <a href="tel:+201099944032" target="_blank">+201099944032</a>
-                    </li>
-                    <li>
-                        <span class="text-uppercase">What's App</span>
-                        <a href="https://wa.me/+201099944032" target="_blank">+201099944032</a>
-                    </li>
-                    <li>
-                        <span class="text-uppercase">Address: </span>
-                        <a href="javascript:void(0)">Cairo, Egypt</a>
-                    </li>
-                </ul>
+        </div>
+
+        <!-- final call & contact section -->
+        <div id="contact" style="margin: 3rem 0 2rem;">
+            <div class="glass-card" style="padding: 2.5rem; text-align: center; background: rgba(5, 18, 38, 0.8);">
+                <i class="fas fa-envelope-open-text" style="font-size: 2.5rem; color: #2dd4bf; margin-bottom: 1rem; display: inline-block;"></i>
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Shape the future of SportsTech</h2>
+                <p style="margin-bottom: 1.8rem; max-width: 550px; margin-left: auto; margin-right: auto;">Ready to own your innovation? Let’s build a global impact.</p>
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.8rem;">
+                    <div><i class="fas fa-envelope"></i> <a href="mailto:info@imagineworldwide.co" style="color:white; text-decoration: none; font-weight: 500;">info@imagineworldwide.co</a></div>
+                    <div><i class="fas fa-map-marker-alt"></i> Middle East Hub — Dubai, UAE</div>
+                    <div><i class="fab fa-linkedin"></i> <span style="opacity:0.8;">CYTOs Innovation</span></div>
+                </div>
+                <div style="margin-top: 2rem; border-top: 1px dashed rgba(45,212,191,0.3); padding-top: 1.5rem; font-size: 0.85rem;">
+                    <i class="fas fa-shield-alt"></i> Innovation Autonomy · Green Quality Seal · Global Incubation
+                </div>
             </div>
         </div>
     </div>
-</section>
+</main>
 
-<script src="js/vendor/jquery.min.js"></script>
-<script src="js/vendor/jquery-migrate-3.0.1.min.js"></script>
-<script src="js/vendor/popper.min.js"></script>
-<script src="js/vendor/bootstrap.min.js"></script>
+<footer style="border-top: 1px solid rgba(45,212,191,0.2); padding: 2rem 0; margin-top: 1rem;">
+    <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: center;">
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <div class="logo-3d" style="width: 250px;">
+                <img src="logo.png" style="width: 250px; height:100px;" alt="logo icon">
+            </div>
+            <span>© 2025 CYTOs — The Intelligent Nucleus. Powered by Imagine Worldwide.</span>
+        </div>
+        <div>
+            <a href="#" style="color: #9ca3af; margin-right: 1rem;"><i class="fab fa-twitter"></i></a>
+            <a href="#" style="color: #9ca3af;"><i class="fab fa-github"></i></a>
+        </div>
+    </div>
+</footer>
 
-<script src="js/vendor/jquery.easing.1.3.js"></script>
+<!-- 3D COUNTDOWN JAVASCRIPT WITH DYNAMIC UPDATES -->
+<script>
+    (function() {
+        // Launch target: August 1, 2026, 00:00:00 local time (midnight).
+        // To make it more engaging, we set to 1st August 2026.
+        const launchDate = new Date(2026, 7, 1, 0, 0, 0); // month 7 = August
 
-<script src="js/vendor/jquery.stellar.min.js"></script>
-<script src="js/vendor/jquery.waypoints.min.js"></script>
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const targetTime = launchDate.getTime();
+            const distance = targetTime - now;
 
-<script src="js/owl.carousel.min.js"></script>
+            if (distance < 0) {
+                // Launch has already started: display epic live message
+                document.getElementById('daysCount').innerText = '00';
+                document.getElementById('hoursCount').innerText = '00';
+                document.getElementById('minutesCount').innerText = '00';
+                document.getElementById('secondsCount').innerText = '00';
+                const badge = document.querySelector('.launch-badge');
+                if (badge) badge.innerHTML = '<i class="fas fa-rocket"></i> LIVE NOW — Ecosystem fully active';
+                return;
+            }
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (86400000)) / (3600000));
+            const minutes = Math.floor((distance % 3600000) / 60000);
+            const seconds = Math.floor((distance % 60000) / 1000);
 
-<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-<script src="js/custom.js"></script>
+            // Format with leading zeros
+            document.getElementById('daysCount').innerText = days < 10 ? '0' + days : days;
+            document.getElementById('hoursCount').innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById('minutesCount').innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('secondsCount').innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
 
+        // initial call
+        updateCountdown();
+        // update every second for perfect 3D experience
+        const interval = setInterval(updateCountdown, 1000);
+
+        // Optional: clean up interval if needed (not strictly necessary for standard page)
+        window.addEventListener('beforeunload', function() {
+            clearInterval(interval);
+        });
+    })();
+</script>
+
+<!-- subtle floating particles effect (decorative) -->
+<script>
+    (function() {
+        // simple decorative effect just to add breath, no performance burden
+        const style = document.createElement('style');
+        style.textContent = `
+            .particle-glow {
+                position: fixed;
+                width: 280px;
+                height: 280px;
+                background: radial-gradient(circle, rgba(45,212,191,0.08) 0%, rgba(0,0,0,0) 70%);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: -1;
+                animation: floatPulse 18s infinite alternate;
+            }
+            @keyframes floatPulse {
+                0% { transform: translate(0,0) scale(1); opacity: 0.3; }
+                100% { transform: translate(40px, 30px) scale(1.2); opacity: 0.6; }
+            }
+        `;
+        document.head.appendChild(style);
+        for(let i=0;i<3;i++) {
+            const blob = document.createElement('div');
+            blob.classList.add('particle-glow');
+            blob.style.top = Math.random() * 100 + '%';
+            blob.style.left = Math.random() * 100 + '%';
+            blob.style.animationDelay = Math.random() * 10 + 's';
+            blob.style.animationDuration = 20 + Math.random() * 15 + 's';
+            document.body.appendChild(blob);
+        }
+    })();
+</script>
 </body>
 </html>
